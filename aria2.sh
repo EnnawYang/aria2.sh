@@ -126,9 +126,7 @@ Download_aria2() {
     echo -e "${Info} Aria2 主程序安装完成！"
 }
 Download_aria2_conf() {
-    PROFILE_URL1="https://p3terx.github.io/aria2.conf"
-    PROFILE_URL2="https://aria2c.now.sh"
-    PROFILE_URL3="https://cdn.jsdelivr.net/gh/P3TERX/aria2.conf@master"
+    PROFILE_URL1="https://raw.githubusercontent.com/EnnawYang/aria2.conf/master"
     PROFILE_LIST="
 aria2.conf
 clean.sh
@@ -145,9 +143,7 @@ LICENSE
     mkdir -p "${aria2_conf_dir}" && cd "${aria2_conf_dir}"
     for PROFILE in ${PROFILE_LIST}; do
         [[ ! -f ${PROFILE} ]] && rm -rf ${PROFILE}
-        wget -N -t2 -T3 ${PROFILE_URL1}/${PROFILE} ||
-            wget -N -t2 -T3 ${PROFILE_URL2}/${PROFILE} ||
-            wget -N -t2 -T3 ${PROFILE_URL3}/${PROFILE}
+        wget -N -t2 -T3 ${PROFILE_URL1}/${PROFILE}
         [[ ! -s ${PROFILE} ]] && {
             echo -e "${Error} '${PROFILE}' 下载失败！清理残留文件..."
             rm -vrf "${aria2_conf_dir}"
@@ -654,7 +650,7 @@ Set_iptables() {
     fi
 }
 Update_Shell() {
-    sh_new_ver=$(wget -qO- -t1 -T3 "https://raw.githubusercontent.com/P3TERX/aria2.sh/master/aria2.sh" | grep 'sh_ver="' | awk -F "=" '{print $NF}' | sed 's/\"//g' | head -1) && sh_new_type="github"
+    sh_new_ver=$(wget -qO- -t1 -T3 "https://raw.githubusercontent.com/EnnawYang/aria2.sh/master/aria2.sh" | grep 'sh_ver="' | awk -F "=" '{print $NF}' | sed 's/\"//g' | head -1) && sh_new_type="github"
     [[ -z ${sh_new_ver} ]] && echo -e "${Error} 无法链接到 Github !" && exit 0
     if [[ -e "/etc/init.d/aria2" ]]; then
         rm -rf /etc/init.d/aria2
@@ -664,7 +660,7 @@ Update_Shell() {
     if [[ -n $(crontab_update_status) ]]; then
         crontab_update_stop
     fi
-    wget -N "https://raw.githubusercontent.com/P3TERX/aria2.sh/master/aria2.sh" && chmod +x aria2.sh
+    wget -N "https://raw.githubusercontent.com/EnnawYang/aria2.sh/master/aria2.sh" && chmod +x aria2.sh
     echo -e "脚本已更新为最新版本[ ${sh_new_ver} ] !(注意：因为更新方式为直接覆盖当前运行的脚本，所以可能下面会提示一些报错，无视即可)" && exit 0
 }
 

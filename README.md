@@ -1,3 +1,5 @@
+### 上传程序由原来调用rclone修改为gclone  
+
 # Aria2 一键安装管理脚本 增强版
 
 [![LICENSE](https://img.shields.io/github/license/P3TERX/aria2.sh?style=flat-square)](https://github.com/P3TERX/aria2.sh/blob/master/LICENSE)
@@ -59,7 +61,7 @@ apt install wget curl ca-certificates
 
 * 下载脚本
 ```
-wget -N git.io/aria2.sh && chmod +x aria2.sh
+wget -N https://raw.githubusercontent.com/EnnawYang/aria2.sh/master/aria2.sh && chmod +x aria2.sh
 ```
 
 * 运行脚本
