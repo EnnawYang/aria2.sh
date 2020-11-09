@@ -9,12 +9,11 @@
 # https://github.com/P3TERX/aria2.sh
 # Description: Aria2 One-click installation management script
 # System Required: CentOS/Debian/Ubuntu
-# Version: 2.7.0
+# Version: 2.7.3
 #
 
-sh_ver="2.7.0"
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
-export PATH
+sh_ver="2.7.3"
+export PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/sbin:/bin
 aria2_conf_dir="/root/.aria2c"
 download_path="/root/downloads"
 aria2_conf="${aria2_conf_dir}/aria2.conf"
@@ -113,6 +112,10 @@ Download_aria2() {
         echo -e "${Error} 不支持此 CPU 架构。"
         exit 1
     fi
+    while [[ $(which aria2c) ]]; do
+        echo -e "${Info} 删除旧版 Aria2 二进制文件..."
+        rm -vf $(which aria2c)
+    done
     DOWNLOAD_URL="https://github.com/P3TERX/aria2-builder/releases/download/${aria2_new_ver}/aria2-${aria2_new_ver%_*}-static-linux-${ARCH}.tar.gz"
     {
         wget -t2 -T3 -O- "${DOWNLOAD_URL}" ||
